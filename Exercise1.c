@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct {
   char code[50];
@@ -12,7 +14,11 @@ typedef struct {
 
 int main(int argc, char *argv[]){
   COURSE course; // malloc cho cac phan tu
-  readFile(argv[1]);
+  if (argc>1)
+  {
+    readFile(argv[1]);
+  }
+  
   
 
 
@@ -20,19 +26,27 @@ int main(int argc, char *argv[]){
   return 0;
 }
 
-int readFile(char* filename){
-  char *list[2];
+int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
+  // char *list = (char*)malloc(sizeof(char)*200);
+  char list[200];
   FILE *fp;
   int c;
-  int courseNum = 0;
+  int courseNum = 1;
   fp = fopen(filename,"r");
   if(fp == NULL){
     printf("Error while opening file.");
     return 1;
   }
-  while( (c=fgetc(fp)) != EOF ){    
+
+  while( (c=fgetc(fp)) != EOF ){   
+    if(c != ';'){
+      strcat(list,c);
+    }else{
+      courseNum++;
+    }
     printf("%c", c);
     
   }
   fclose(fp); 
+  return 0;
 }
