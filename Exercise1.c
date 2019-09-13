@@ -37,22 +37,21 @@ int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
     printf("Error while opening file.");
     return 1;
   }
-
   while( (c=fgetc(fp)) != EOF ){   
     if(c != ';'){
       char buff= (char) c;
-      printf("%c",buff);      
-      // strcat(list,buff);
+      // printf("%c",buff);      
+      strcat(list,(char[]){buff, '\0'});    
       
       
     }else{
       courseNum++;
-      printf("\n\n");
+      printf("");
     }
     // printf("%c", c);
     
   }
   fclose(fp); 
-  // printf("\n\n%s",list);
+  printf("\n\n%s",list);
   return 0;
 }
