@@ -28,10 +28,10 @@ int main(int argc, char *argv[]){
 
 int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
   // char *list = (char*)malloc(sizeof(char)*200);
-  char list[1000];
+  char list[10][1000];
   FILE *fp;
   int c;
-  int courseNum = 1;
+  int courseNum = 0;
   fp = fopen(filename,"r");
   if(fp == NULL){
     printf("Error while opening file.");
@@ -41,17 +41,17 @@ int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
     if(c != ';'){
       char buff= (char) c;
       // printf("%c",buff);      
-      strcat(list,(char[]){buff, '\0'});    
+      strcat(list[courseNum],(char[]){buff, '\0'});    
       
       
     }else{
       courseNum++;
       printf("");
     }
-    // printf("%c", c);
     
   }
   fclose(fp); 
-  printf("\n\n%s",list);
+  for(int i=0;i<courseNum;i++)
+  printf("\n\n%s",list[i]);
   return 0;
 }
