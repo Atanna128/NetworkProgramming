@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
 
 int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
   // char *list = (char*)malloc(sizeof(char)*200);
-  char list[200];
+  char list[1000];
   FILE *fp;
   int c;
   int courseNum = 1;
@@ -40,13 +40,19 @@ int readFile(char* filename){ // tra ve chuoi~ cai string de xu ly
 
   while( (c=fgetc(fp)) != EOF ){   
     if(c != ';'){
-      strcat(list,c);
+      char buff= (char) c;
+      printf("%c",buff);      
+      // strcat(list,buff);
+      
+      
     }else{
       courseNum++;
+      printf("\n\n");
     }
-    printf("%c", c);
+    // printf("%c", c);
     
   }
   fclose(fp); 
+  // printf("\n\n%s",list);
   return 0;
 }
