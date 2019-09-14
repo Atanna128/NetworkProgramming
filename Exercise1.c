@@ -11,24 +11,25 @@ typedef struct {
   char week[50];
   char room[50];
 }COURSE;
-
-void readFile(char* filename);
+COURSE* ReadFile(char* filename);
+COURSE Analyse(char* list);
 
 int main(int argc, char *argv[]){
-  COURSE course[10]; // malloc cho cac phan tu
+  COURSE *course1= malloc(sizeof(COURSE)*10);
   if (argc>1)
   {
     char* filename =  argv[1];
-    readFile(filename);
+    course1 = ReadFile(filename);
     
+    // printf("\n\n period = %d",course1[0].period[0]);
+        
   }else printf("No source file found!");
   
   return 0;
 }
 
-void readFile(char* filename){ 
-  // char *list = (char*)malloc(sizeof(char)*200);
-  COURSE course[10];
+COURSE* ReadFile(char* filename){ 
+  COURSE *course = malloc(sizeof(COURSE)*10);
   char list[10][1000];
   FILE *fp;
   int c;
@@ -42,12 +43,18 @@ void readFile(char* filename){
       char buff= (char) c;
       strcat(list[courseNum],(char[]){buff, '\0'});      
     }else{
+      course[courseNum] = Analyse(list[courseNum]);
       courseNum++;
-      printf("");
     }    
   }
+  course[0].period[0] =1;
   fclose(fp); 
   for(int i=0;i<courseNum;i++)
-  printf("\n\n%s",list[i]);
-  // return course[0];
+  // printf("\n\n%s",list[i]);
+
+  return course;
+}
+
+COURSE Analyse(char* list){
+  // printf("%s\n",list);
 }
