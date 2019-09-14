@@ -3,7 +3,7 @@
 #include <string.h>
 
 typedef struct {
-  char code[50];
+  char code[20];
   char courseName[50];
   char weekday[50];
   char AMPM[50];
@@ -11,6 +11,7 @@ typedef struct {
   char week[50];
   char room[50];
 }COURSE;
+
 COURSE* ReadFile(char* filename);
 COURSE Analyse(char* list);
 
@@ -21,8 +22,6 @@ int main(int argc, char *argv[]){
     char* filename =  argv[1];
     course1 = ReadFile(filename);
     
-    // printf("\n\n period = %d",course1[0].period[0]);
-        
   }else printf("No source file found!");
   
   return 0;
@@ -35,10 +34,12 @@ COURSE* ReadFile(char* filename){
   int c;
   int courseNum = 0;
   fp = fopen(filename,"r");
-  if(fp == NULL){
+  if(fp == NULL)
+  {
     printf("Error while opening file.");
   }
-  while( (c=fgetc(fp)) != EOF ){   
+  while( (c=fgetc(fp)) != EOF )
+  {   
     if(c != ';'){
       char buff= (char) c;
       strcat(list[courseNum],(char[]){buff, '\0'});      
@@ -47,7 +48,6 @@ COURSE* ReadFile(char* filename){
       courseNum++;
     }    
   }
-  course[0].period[0] =1;
   fclose(fp); 
   for(int i=0;i<courseNum;i++)
   // printf("\n\n%s",list[i]);
@@ -56,5 +56,34 @@ COURSE* ReadFile(char* filename){
 }
 
 COURSE Analyse(char* list){
-  // printf("%s\n",list);
+  COURSE course;
+  char code[20] = "";
+  char courseName[50] = "";
+  char weekday[50] = "";
+  char AMPM[50] = "";
+  int period[2] = {0,0};
+  char week[50] = "";
+  char room[50] = "";
+  int i = 0;
+  int length = strlen(list);
+  for(i;i<length;i++)
+  { // get code
+    if(list[i] != ' ')
+    {
+      strcat(code,(char[]){list[i],'\0'});
+    }
+    else break;
+  }
+  for(i;i<length;i++)
+  {
+    if(list[i] == '1' && list[i+1] == ',' ){
+      break;
+    }
+    else strcat(courseName,(char[]){list[i],'\0'});
+  }
+
+  strcpy(course.code,code);
+  strcpy(course.courseName,courseName);
+  printf("%s\t %s\n",course.code,course.courseName);
+  return course;
 }
