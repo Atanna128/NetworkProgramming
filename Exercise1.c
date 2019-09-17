@@ -7,13 +7,15 @@ typedef struct {
   char courseName[50];
   char weekday[50];
   char AMPM[50];
-  int period[2];
+  char period[10];
   char week[50];
   char room[50];
 }COURSE;
 
 COURSE* ReadFile(char* filename);
 COURSE Analyse(char* list);
+char* convertWeekDay(char* code);
+char* convertAMPM(char* code);
 
 int main(int argc, char *argv[]){
   COURSE *course1= malloc(sizeof(COURSE)*10);
@@ -21,7 +23,10 @@ int main(int argc, char *argv[]){
   {
     char* filename =  argv[1];
     course1 = ReadFile(filename);
-    
+    for(int i = 0; i < 5;i++)
+    {
+      printf("%s\t %s\n",course1[i].code,course1[i].courseName);
+    }
   }else printf("No source file found!");
   
   return 0;
@@ -61,7 +66,7 @@ COURSE Analyse(char* list){
   char courseName[50] = "";
   char weekday[50] = "";
   char AMPM[50] = "";
-  int period[2] = {0,0};
+  char period[10] = "";
   char week[50] = "";
   char room[50] = "";
   int i = 0;
@@ -75,15 +80,63 @@ COURSE Analyse(char* list){
     else break;
   }
   for(i;i<length;i++)
-  {
+  { //get courseName
     if(list[i] == '1' && list[i+1] == ',' ){
       break;
     }
     else strcat(courseName,(char[]){list[i],'\0'});
   }
+  i++;
+  for(int j = 0;j<2;j++)
+  {
+    for (i; i <length; i++)
+    {
+      
+    }
+    
+  }
+  
 
   strcpy(course.code,code);
   strcpy(course.courseName,courseName);
-  printf("%s\t %s\n",course.code,course.courseName);
+  // printf("%s\t %s\n",course.code,course.courseName);
   return course;
+}
+
+char* convertWeekDay(char* code){
+  switch (s[0]){   
+    case '2':
+      return "Monday";
+      break;
+    case '3':
+      return "Tuesday";
+      break;
+    case '4':
+      return "Wednesday";
+      break;
+    case '5':
+      return "Thursday";
+      break;
+    case '6':
+      return "Friday";
+      break;
+    case '7':
+      return "Saturday";
+      break;     
+    default:
+      return "None";
+      
+      }
+}
+
+char* convertAMPM(char* code){
+  switch (code[1]){
+    case '1':
+      return "Morning";
+      break;
+    case '2':
+      return "Afternoon";
+      break;
+    default:
+      return "None";
 }
